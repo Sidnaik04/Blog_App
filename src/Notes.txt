@@ -80,3 +80,7 @@ g. Post.jsx
 15. Debugging -> Check for the mistakes and error you have done.
 First, learn to read the error.
 Read about CORS error.
+
+16. Deploy the app for Production: Using Vercel
+
+****** Done *******

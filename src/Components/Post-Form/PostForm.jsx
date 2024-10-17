@@ -19,48 +19,38 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
-        console.log("Data submitted: ", data);
+        if (post) {
+            const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
 
-        try {
-            let file = null;
-            if (data.image && data.image[0]) {
-                file = await service.uploadFile(data.image[0]);
-                console.log("File upload result: ", file);
+            if (file) {
+                service.deleteFile(post.featuredImage);
             }
 
-            if (post) {
-                console.log("Updating post with ID: ", post.$id);
+            const dbPost = await service.updatePost(post.$id, {
+                ...data,
+                featuredImage: file ? file.$id : undefined,
+            });
 
-                if (file && post.featuredImage) {
-                    console.log("Deleting old featured image: ", post.featuredImage);
-                    await service.deleteFile(post.featuredImage);
-                }
+            if (dbPost) {
+                navigate(`/post/${dbPost.$id}`);
+            }
 
-                const dbPost = await service.updatePost(post.$id, {
-                    ...data,
-                    featuredImage: file ? file.$id : post.featuredImage,
-                });
+        } else {
+            const file = await service.uploadFile(data.image[0]);
 
-                console.log("Updated post: ", dbPost);
-                if (dbPost) navigate(`/post/${dbPost.$id}`);
-
-            } else {
-                console.log("Creating new post");
-
-                if (file) {
-                    data.featuredImage = file.$id;
-                }
-
+            if (file) {
+                const fileId = file.$id;
+                data.featuredImage = fileId;
                 const dbPost = await service.createPost({ ...data, userId: userData.$id });
-                console.log("New post created: ", dbPost);
-                if (dbPost) navigate(`/post/${dbPost.$id}`);
-            }
 
-        } catch (error) {
-            console.error("Error occurred: ", error);
-            // Display error feedback here (e.g., toast notification or alert)
+                if (dbPost) {
+                    navigate(`/post/${dbPost.$id}`);
+                }
+            }
         }
+        
     };
+
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")
