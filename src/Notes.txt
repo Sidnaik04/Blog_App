@@ -1,0 +1,82 @@
+React Mega Project:
+
+What we will use:
+1. Appwrite : for backend as a service
+2. TinyMCE: for text-editor
+3. html-react-parser: for parsing html code
+4. React hook form: for forms
+
+Steps:
+
+1. Create a project using npm and vitejs & Configure tailwind css
+
+2. Install dependencies: redux-toolkit , react-redux, react-router-dom, appwrite, tinymce-react, html-react-parser, react-hook-form
+
+3. Environment Variables (.env):
+a. (.env) -> this is important file for environment variables, which you dont push on git. Do gitignore.
+b. (.env.sample)-> this file you can push on git.
+
+4. Appwrite-> create new project
+a. url -> api endpoint
+b. id -> project id
+c. create database id
+d. create collection id (tables of database) -> provide permission for users in setting
+e. create attribute in collection  (title, content, featured image, status, userid)
+f. create index in collection (status)
+e. create bucket id -> give permission to user.
+
+5. Created folder Config.
+config.js -> for importing environment variables 
+
+6. Building Authentication service with appwrite:
+a. Create a folder Appwrite for all, appwrite related things
+b. create auth.js file in Appwrite.
+
+7. Create a service for database,storage (bucket):
+a. create a file conf.js in Appwrite folder
+
+8. Redux toolkit configuration -> state management
+a. Create folder for store -> store.js (store)
+b. create a new file under store folder -> authSlice.js (reducer)
+
+9. Create Components -> use it as props (dynamic)
+create index.js -> to import the components and export it
+a. Header
+b. Footer -> Footer.jsx
+
+10. App.jsx 
+a. Handling Login and Logout. 
+b. Conditional Rendering
+
+11. Main.jsx
+a. Provider for App
+
+12 Create Components (continue):
+c. Container -> Container.jsx
+d. Logo.jsx
+e. Header -> LogoutBtn.jsx
+f. Header -> Header.jsx
+g. Button.jsx -> common Button
+h. Input.jsx
+i. Select.jsx -> dropdown button
+j. PostCard.jsx -> cards to read further article 
+k. Login.jsx -> Login component
+l. Signup.jsx -> signup component
+m. AuthLayout.jsx -> layout for authentication, mechanism to protect pages and routes
+n. RTE.jsx (Real Time Editor) 
+o. Post-Form -> PostForm.jsx (Hard to understand)
+
+13.Create folder Pages
+a. Signup.jsx
+b. Login.jsx
+c. AddPost.jsx
+d. AllPost.jsx
+e. EditPost.jsx
+f. Home.jsx
+g. Post.jsx
+
+14. Routing -> Route provider to all Components to App.jsx
+
+15. Debugging -> Check for the mistakes and error you have done.
+First, learn to read the error.
+Read about CORS error.
